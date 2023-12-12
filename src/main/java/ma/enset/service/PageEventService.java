@@ -53,6 +53,16 @@ public class PageEventService {
         };
     }*/
 
+    /*@Bean
+    public Function<KStream<String,PageEvent>,KStream<String,Long>> kStreamFunction(){
+        return (input)->{
+            return input.filter((k,v)->v.getDuration()>1000)
+                    .map((k,v)->new KeyValue<>(v.getName(),0L))
+                    .groupBy((k,v)->k,Grouped.with(Serdes.String(),Serdes.Long()))
+                    .count().toStream();
+        };
+    }*/
+
     //@Bean
     public Consumer<KStream<String,PageEvent>> pageStreamConsumer(){
         return (pageEvent -> pageEvent
