@@ -1,6 +1,6 @@
 package ma.enset.processors;
 
-import net.youssfi.demospringkafka.entities.PageEvent;
+import ma.enset.entities.PageEvent;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Grouped;
