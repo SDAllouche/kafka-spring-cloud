@@ -6,9 +6,12 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.Materialized;
+import org.apache.kafka.streams.kstream.TimeWindows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.Duration;
 import java.util.Date;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -59,7 +62,9 @@ public class PageEventService {
             return input.filter((k,v)->v.getDuration()>1000)
                     .map((k,v)->new KeyValue<>(v.getName(),0L))
                     .groupBy((k,v)->k,Grouped.with(Serdes.String(),Serdes.Long()))
-                    .count().toStream();
+                    .windowedBy(TimeWindows.of(Duration.ofDays(5000)))
+                    .count(Materialized.as("page-count")).toStream()
+                    .map((k,v)->new KeyValue<>("=>"+k.window().startTime()+k.window().endTime()+k.key(),v));
         };
     }*/
 
