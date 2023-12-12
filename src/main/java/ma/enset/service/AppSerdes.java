@@ -1,5 +1,5 @@
 package ma.enset.service;
-import net.youssfi.demospringkafka.entities.PageEvent;
+import ma.enset.entities.PageEvent;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.springframework.kafka.support.serializer.JsonDeserializer;

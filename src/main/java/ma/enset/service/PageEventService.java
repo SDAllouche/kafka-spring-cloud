@@ -1,6 +1,6 @@
 package ma.enset.service;
 
-import net.youssfi.demospringkafka.entities.PageEvent;
+import ma.enset.entities.PageEvent;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.Date;
 import java.util.Random;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @Configuration
@@ -42,6 +43,15 @@ public class PageEventService {
                     .build();
         };
     }
+
+    /*@Bean
+    public Function<PageEvent,PageEvent> pageEventFunction(){
+        return (input)->{
+            input.setName("L:"+input.getName().length());
+            input.setUser("UUUUU");
+            return input;
+        };
+    }*/
 
     //@Bean
     public Consumer<KStream<String,PageEvent>> pageStreamConsumer(){
